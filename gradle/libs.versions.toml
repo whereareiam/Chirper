@@ -1,5 +1,8 @@
 [versions]
 
+# plugins
+shadow = "8.1.8"
+
 socialismus = "dev-SNAPSHOT"
 
 # compile time processing
@@ -7,6 +10,11 @@ lombok = "1.18.32"
 
 # general
 guice = "7.0.0"
+adventure = "4.17.0"
+jackson = "2.17.2"
+
+# cloud
+cloud-core = "2.0.0-rc.2"
 
 [libraries]
 
@@ -17,7 +25,17 @@ lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" 
 
 # general
 guice = { group = "com.google.inject", name = "guice", version.ref = "guice" }
+adventure = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
+jackson = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
+
+# cloud
+cloud-core = { group = "org.incendo", name = "cloud-core", version.ref = "cloud-core" }
+cloud-annotations = { group = "org.incendo", name = "cloud-annotations", version.ref = "cloud-core" }
 
 [bundles]
 
+cloud = ["cloud-core", "cloud-annotations"]
+
 [plugins]
+
+shadow = { id = "io.github.goooler.shadow", version.ref = "shadow" }

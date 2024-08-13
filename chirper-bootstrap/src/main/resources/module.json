@@ -1,0 +1,17 @@
+{
+  "name": "Chirper",
+  "version": "0.0.1",
+  "authors": [
+    "whereareiam"
+  ],
+  "supportedPlatforms": [
+    "VELOCITY",
+    "PAPER",
+    "BUKKIT"
+  ],
+  "supportedVersions": [
+    "ALL"
+  ],
+  "dependencies": [],
+  "main": "me.whereareiam.socialismus.module.chirper.Chirper"
+}
