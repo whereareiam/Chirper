@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import me.whereareiam.socialismus.api.Reloadable;
 import me.whereareiam.socialismus.api.input.chat.RequirementValidation;
+import me.whereareiam.socialismus.api.input.container.PlayerContainerService;
 import me.whereareiam.socialismus.api.input.registry.ExtendedRegistry;
 import me.whereareiam.socialismus.api.input.registry.Registry;
 import me.whereareiam.socialismus.api.input.serializer.SerializationService;
@@ -55,7 +56,8 @@ public class Chirper extends SocialisticModule {
                         parentInjector.getInstance(LoggingHelper.class),
                         parentInjector.getInstance(ConfigurationManager.class),
                         parentInjector.getInstance(ConfigurationLoader.class),
-                        parentInjector.getInstance(CommandService.class)
+                        parentInjector.getInstance(CommandService.class),
+                        parentInjector.getInstance(PlayerContainerService.class)
                 ),
                 new ConfigBinder(workingPath),
                 new CommonConfiguration()

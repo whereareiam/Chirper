@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import me.whereareiam.socialismus.api.Reloadable;
 import me.whereareiam.socialismus.api.input.chat.RequirementValidation;
+import me.whereareiam.socialismus.api.input.container.PlayerContainerService;
 import me.whereareiam.socialismus.api.input.registry.ExtendedRegistry;
 import me.whereareiam.socialismus.api.input.registry.Registry;
 import me.whereareiam.socialismus.api.input.serializer.SerializationService;
@@ -32,9 +33,11 @@ public class ChirperInjectorConfiguration extends AbstractModule {
     private final ConfigurationLoader configurationLoader;
 
     private final CommandService commandService;
+    private final PlayerContainerService playerContainerService;
 
     public ChirperInjectorConfiguration(Scheduler scheduler, PlatformInteractor platformInteractor, SerializationService serializationService, Registry<Reloadable> reloadableRegistry, Registry<Map<String, CommandEntity>> commandRegistry,
-                                        ExtendedRegistry<RequirementType, RequirementValidation> requirementRegistry, LoggingHelper loggingHelper, ConfigurationManager configurationManager, ConfigurationLoader configurationLoader, CommandService commandService) {
+                                        ExtendedRegistry<RequirementType, RequirementValidation> requirementRegistry, LoggingHelper loggingHelper, ConfigurationManager configurationManager, ConfigurationLoader configurationLoader, CommandService commandService,
+                                        PlayerContainerService playerContainerService) {
         this.scheduler = scheduler;
         this.platformInteractor = platformInteractor;
         this.serializationService = serializationService;
@@ -48,6 +51,7 @@ public class ChirperInjectorConfiguration extends AbstractModule {
         this.configurationLoader = configurationLoader;
 
         this.commandService = commandService;
+        this.playerContainerService = playerContainerService;
     }
 
     @Override
@@ -65,5 +69,6 @@ public class ChirperInjectorConfiguration extends AbstractModule {
         bind(ConfigurationLoader.class).toInstance(configurationLoader);
 
         bind(CommandService.class).toInstance(commandService);
+        bind(PlayerContainerService.class).toInstance(playerContainerService);
     }
 }
