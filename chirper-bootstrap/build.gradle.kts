@@ -5,8 +5,6 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
-apply(plugin = "io.github.goooler.shadow")
-
 dependencies {
     "implementation"(project(":chirper-configuration"))
     "implementation"(project(":chirper-common-api"))

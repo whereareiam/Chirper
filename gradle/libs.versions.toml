@@ -1,7 +1,7 @@
 [versions]
 
 # plugins
-shadow = "8.1.8"
+shadow = "8.3.0"
 
 socialismus = "dev-SNAPSHOT"
 
@@ -38,4 +38,4 @@ cloud = ["cloud-core", "cloud-annotations"]
 
 [plugins]
 
-shadow = { id = "io.github.goooler.shadow", version.ref = "shadow" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
