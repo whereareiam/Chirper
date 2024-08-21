@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.Optional;
 
 @Singleton
-@Command("%command.main")
 public class AnnounceCommand implements CommandBase {
     private final SerializationService serializer;
     private final AnnouncementBroadcaster broadcaster;
@@ -76,7 +75,7 @@ public class AnnounceCommand implements CommandBase {
         CommandEntity command = commands.get().getCommands().get("announce");
 
         return Map.of(
-                "command." + command.getAliases().getFirst() + ".name", command.getUsage().replace("{command}", String.join("|", command.getAliases())),
+                "command." + command.getAliases().getFirst() + ".name", command.getUsage().replace("{alias}", String.join("|", command.getAliases())),
                 "command." + command.getAliases().getFirst() + ".permission", command.getPermission(),
                 "command." + command.getAliases().getFirst() + ".description", command.getDescription(),
                 "command." + command.getAliases().getFirst() + ".usage", command.getUsage()

@@ -1,6 +1,6 @@
 {
-  "name": "Chirper",
-  "version": "0.0.1",
+  "name": "@projectName@",
+  "version": "@projectVersion@",
   "authors": [
     "whereareiam"
   ],

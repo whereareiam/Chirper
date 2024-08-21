@@ -18,7 +18,7 @@ public class ChirperCommandsTemplate implements DefaultConfig<ChirperCommands> {
                 .aliases(List.of("announce", "broadcast", "chirp"))
                 .permission("socialismus.admin")
                 .description("Announce command")
-                .usage("{command} <id> [bool]")
+                .usage("{command} {alias} <id> [bool]")
                 .enabled(true)
                 .build();
 
