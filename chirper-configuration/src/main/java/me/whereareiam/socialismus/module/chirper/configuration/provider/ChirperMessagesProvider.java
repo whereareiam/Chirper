@@ -26,7 +26,9 @@ public class ChirperMessagesProvider implements Provider<ChirperMessages>, Reloa
         this.configLoader = configLoader;
 
         configManager.addTemplate(ChirperMessages.class, template);
+        
         registry.register(this);
+        get();
     }
 
     @Override

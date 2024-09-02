@@ -1,6 +1,8 @@
 package me.whereareiam.socialismus.module.chirper.configuration.template;
 
+import me.whereareiam.socialismus.api.model.requirement.RequirementGroup;
 import me.whereareiam.socialismus.api.output.DefaultConfig;
+import me.whereareiam.socialismus.api.type.requirement.RequirementOperatorType;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.variant.*;
 import me.whereareiam.socialismus.module.chirper.api.type.AnnouncementType;
@@ -35,9 +37,9 @@ public class AnnouncementTemplate implements DefaultConfig<AnnouncementsConfig> 
                                 "<gray>  If you like the plugin, please leave a review on the plugin page, it will help me a lot!",
                                 ""
                         ))
-                        .requirements(Map.of())
+                        .requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                         .build())
-                ).requirements(Map.of())
+                ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                 .build();
 
         Announcement bossBarExample0 = Announcement.builder()
@@ -55,9 +57,9 @@ public class AnnouncementTemplate implements DefaultConfig<AnnouncementsConfig> 
                                 .duration(5)
                                 .breakable(true)
                                 .build()
-                        ).requirements(Map.of())
+                        ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                         .build())
-                ).requirements(Map.of())
+                ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                 .build();
 
         Announcement bossBarExample1 = Announcement.builder()
@@ -76,13 +78,13 @@ public class AnnouncementTemplate implements DefaultConfig<AnnouncementsConfig> 
                                         .duration(3)
                                         .breakable(true)
                                         .build()
-                                ).requirements(Map.of())
+                                ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                                 .build(),
                         AnnouncementType.ACTIONBAR, ActionbarAnnouncement.builder()
                                 .message("<purple>Don't forget to take a break and stretch!")
-                                .requirements(Map.of())
+                                .requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                                 .build())
-                ).requirements(Map.of())
+                ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                 .build();
 
         Announcement bossBarExample2 = Announcement.builder()
@@ -100,9 +102,9 @@ public class AnnouncementTemplate implements DefaultConfig<AnnouncementsConfig> 
                                 .duration(10)
                                 .breakable(true)
                                 .build()
-                        ).requirements(Map.of())
+                        ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                         .build())
-                ).requirements(Map.of())
+                ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                 .build();
 
         Announcement titleExample0 = Announcement.builder()
@@ -121,9 +123,9 @@ public class AnnouncementTemplate implements DefaultConfig<AnnouncementsConfig> 
                                 .stay(600)
                                 .fadeOut(200)
                                 .build()
-                        ).requirements(Map.of())
+                        ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                         .build()))
-                .requirements(Map.of())
+                .requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                 .build();
 
         Announcement titleExample1 = Announcement.builder()
@@ -143,7 +145,7 @@ public class AnnouncementTemplate implements DefaultConfig<AnnouncementsConfig> 
                                         .stay(600)
                                         .fadeOut(200)
                                         .build()
-                                ).requirements(Map.of())
+                                ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                                 .build(),
                         AnnouncementType.SOUND, SoundAnnouncement.builder()
                                 .sound("entity_player_levelup")
@@ -151,10 +153,10 @@ public class AnnouncementTemplate implements DefaultConfig<AnnouncementsConfig> 
                                         .volume(1.0f)
                                         .pitch(1.0f)
                                         .build()
-                                ).requirements(Map.of())
+                                ).requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                                 .build()
                 ))
-                .requirements(Map.of())
+                .requirements(RequirementGroup.builder().operator(RequirementOperatorType.AND).groups(Map.of()).build())
                 .build();
 
         config.getAnnouncements().addAll(List.of(

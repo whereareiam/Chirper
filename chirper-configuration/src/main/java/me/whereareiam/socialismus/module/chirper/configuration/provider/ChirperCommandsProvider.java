@@ -29,6 +29,7 @@ public class ChirperCommandsProvider implements Provider<ChirperCommands>, Reloa
         configManager.addTemplate(ChirperCommands.class, template);
 
         reloadableRegistry.register(this);
+        get();
     }
 
     @Override

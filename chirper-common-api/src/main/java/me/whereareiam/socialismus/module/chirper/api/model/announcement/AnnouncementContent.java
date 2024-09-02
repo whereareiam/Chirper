@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import me.whereareiam.socialismus.api.model.requirement.Requirement;
-import me.whereareiam.socialismus.api.type.requirement.RequirementType;
-
-import java.util.Map;
+import me.whereareiam.socialismus.api.model.requirement.RequirementGroup;
 
 @Getter
 @ToString
@@ -16,5 +13,5 @@ import java.util.Map;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class AnnouncementContent {
-    private Map<RequirementType, ? extends Requirement> requirements;
+    private RequirementGroup requirements;
 }

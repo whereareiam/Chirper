@@ -3,10 +3,9 @@ package me.whereareiam.socialismus.module.chirper;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import me.whereareiam.socialismus.api.Reloadable;
-import me.whereareiam.socialismus.api.input.RequirementValidation;
 import me.whereareiam.socialismus.api.input.container.PlayerContainerService;
-import me.whereareiam.socialismus.api.input.registry.ExtendedRegistry;
 import me.whereareiam.socialismus.api.input.registry.Registry;
+import me.whereareiam.socialismus.api.input.requirement.RequirementEvaluatorService;
 import me.whereareiam.socialismus.api.input.serializer.SerializationService;
 import me.whereareiam.socialismus.api.model.CommandEntity;
 import me.whereareiam.socialismus.api.output.LoggingHelper;
@@ -15,7 +14,6 @@ import me.whereareiam.socialismus.api.output.Scheduler;
 import me.whereareiam.socialismus.api.output.command.CommandService;
 import me.whereareiam.socialismus.api.output.config.ConfigurationLoader;
 import me.whereareiam.socialismus.api.output.config.ConfigurationManager;
-import me.whereareiam.socialismus.api.type.requirement.RequirementType;
 
 import java.util.Map;
 
@@ -26,7 +24,7 @@ public class ChirperInjectorConfiguration extends AbstractModule {
 
     private final Registry<Reloadable> reloadableRegistry;
     private final Registry<Map<String, CommandEntity>> commandRegistry;
-    private final ExtendedRegistry<RequirementType, RequirementValidation> requirementRegistry;
+    private final RequirementEvaluatorService requirementEvaluator;
 
     private final LoggingHelper loggingHelper;
     private final ConfigurationManager configurationManager;
@@ -36,7 +34,7 @@ public class ChirperInjectorConfiguration extends AbstractModule {
     private final PlayerContainerService playerContainerService;
 
     public ChirperInjectorConfiguration(Scheduler scheduler, PlatformInteractor platformInteractor, SerializationService serializationService, Registry<Reloadable> reloadableRegistry, Registry<Map<String, CommandEntity>> commandRegistry,
-                                        ExtendedRegistry<RequirementType, RequirementValidation> requirementRegistry, LoggingHelper loggingHelper, ConfigurationManager configurationManager, ConfigurationLoader configurationLoader, CommandService commandService,
+                                        RequirementEvaluatorService requirementEvaluator, LoggingHelper loggingHelper, ConfigurationManager configurationManager, ConfigurationLoader configurationLoader, CommandService commandService,
                                         PlayerContainerService playerContainerService) {
         this.scheduler = scheduler;
         this.platformInteractor = platformInteractor;
@@ -44,7 +42,7 @@ public class ChirperInjectorConfiguration extends AbstractModule {
 
         this.reloadableRegistry = reloadableRegistry;
         this.commandRegistry = commandRegistry;
-        this.requirementRegistry = requirementRegistry;
+        this.requirementEvaluator = requirementEvaluator;
 
         this.loggingHelper = loggingHelper;
         this.configurationManager = configurationManager;
@@ -59,10 +57,10 @@ public class ChirperInjectorConfiguration extends AbstractModule {
         bind(Scheduler.class).toInstance(scheduler);
         bind(PlatformInteractor.class).toInstance(platformInteractor);
         bind(SerializationService.class).toInstance(serializationService);
+        bind(RequirementEvaluatorService.class).toInstance(requirementEvaluator);
 
         bind(new TypeLiteral<Registry<Reloadable>>() {}).toInstance(reloadableRegistry);
         bind(new TypeLiteral<Registry<Map<String, CommandEntity>>>() {}).toInstance(commandRegistry);
-        bind(new TypeLiteral<ExtendedRegistry<RequirementType, RequirementValidation>>() {}).toInstance(requirementRegistry);
 
         bind(LoggingHelper.class).toInstance(loggingHelper);
         bind(ConfigurationManager.class).toInstance(configurationManager);

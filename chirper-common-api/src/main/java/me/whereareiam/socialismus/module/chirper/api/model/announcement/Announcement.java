@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import me.whereareiam.socialismus.api.model.requirement.Requirement;
-import me.whereareiam.socialismus.api.type.requirement.RequirementType;
+import me.whereareiam.socialismus.api.model.requirement.RequirementGroup;
 import me.whereareiam.socialismus.module.chirper.api.type.AnnouncementType;
 
 import java.util.Map;
@@ -21,7 +20,7 @@ public class Announcement {
     private String id;
     private AnnouncementSettings settings;
     private Map<AnnouncementType, ? extends AnnouncementContent> contents;
-    private Map<RequirementType, ? extends Requirement> requirements;
+    private RequirementGroup requirements;
 
     @Getter
     @ToString

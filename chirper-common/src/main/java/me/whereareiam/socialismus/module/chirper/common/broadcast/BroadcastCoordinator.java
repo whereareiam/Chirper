@@ -3,6 +3,7 @@ package me.whereareiam.socialismus.module.chirper.common.broadcast;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import me.whereareiam.socialismus.api.input.container.PlayerContainerService;
+import me.whereareiam.socialismus.api.input.requirement.RequirementEvaluatorService;
 import me.whereareiam.socialismus.api.model.player.DummyPlayer;
 import me.whereareiam.socialismus.api.model.scheduler.DelayedRunnableTask;
 import me.whereareiam.socialismus.api.output.Scheduler;
@@ -10,7 +11,6 @@ import me.whereareiam.socialismus.module.chirper.api.input.AnnouncementBroadcast
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.AnnouncementContent;
 import me.whereareiam.socialismus.module.chirper.api.type.AnnouncementType;
-import me.whereareiam.socialismus.module.chirper.common.requirement.RequirementValidator;
 
 import java.util.Map;
 import java.util.Random;
@@ -22,14 +22,14 @@ public class BroadcastCoordinator implements AnnouncementBroadcaster {
     private final Scheduler scheduler;
     private final PlayerContainerService playerContainer;
     private final BroadcastSender broadcastSender;
-    private final RequirementValidator requirementValidator;
+    private final RequirementEvaluatorService requirementEvaluator;
 
     @Inject
-    public BroadcastCoordinator(Scheduler scheduler, PlayerContainerService playerContainer, BroadcastSender broadcastSender, RequirementValidator requirementValidator) {
+    public BroadcastCoordinator(Scheduler scheduler, PlayerContainerService playerContainer, BroadcastSender broadcastSender, RequirementEvaluatorService requirementEvaluator) {
         this.scheduler = scheduler;
         this.playerContainer = playerContainer;
         this.broadcastSender = broadcastSender;
-        this.requirementValidator = requirementValidator;
+        this.requirementEvaluator = requirementEvaluator;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class BroadcastCoordinator implements AnnouncementBroadcaster {
 
         Set<DummyPlayer> recipients = playerContainer.getPlayers();
         recipients = recipients.parallelStream()
-                .filter(r -> requirementValidator.checkRequirements(announcement, r))
+                .filter(r -> requirementEvaluator.check(announcement.getRequirements(), r))
                 .collect(Collectors.toSet());
 
         if (announcement.getSettings().getDelay() > 0) {
@@ -70,7 +70,7 @@ public class BroadcastCoordinator implements AnnouncementBroadcaster {
     private void sendAnnouncement(Announcement announcement, Set<DummyPlayer> recipients) {
         for (DummyPlayer recipient : recipients) {
             for (Map.Entry<AnnouncementType, ? extends AnnouncementContent> entry : announcement.getContents().entrySet())
-                if (requirementValidator.checkRequirements(entry.getValue(), recipient))
+                if (requirementEvaluator.check(entry.getValue().getRequirements(), recipient))
                     broadcastSender.sendContent(entry.getKey(), entry.getValue(), recipient);
         }
     }

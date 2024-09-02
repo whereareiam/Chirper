@@ -19,11 +19,12 @@ import org.incendo.cloud.annotations.CommandDescription;
 import org.incendo.cloud.annotations.Permission;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Singleton
-public class AnnounceCommand implements CommandBase {
+public class AnnounceCommand extends CommandBase {
+    private static final String COMMAND_NAME = "announce";
+
     private final SerializationService serializer;
     private final AnnouncementBroadcaster broadcaster;
 
@@ -34,6 +35,7 @@ public class AnnounceCommand implements CommandBase {
     @Inject
     public AnnounceCommand(SerializationService serializer, AnnouncementBroadcaster broadcaster, Provider<ChirperCommands> commands, Provider<ChirperMessages> messages,
                            Provider<List<Announcement>> announcements) {
+        super(COMMAND_NAME);
         this.serializer = serializer;
         this.broadcaster = broadcaster;
 
@@ -42,9 +44,9 @@ public class AnnounceCommand implements CommandBase {
         this.announcements = announcements;
     }
 
-    @Command("%command.announce")
-    @CommandDescription("%description.announce")
-    @Permission("%permission.announce")
+    @Command("%command." + COMMAND_NAME)
+    @CommandDescription("%description." + COMMAND_NAME)
+    @Permission("%permission." + COMMAND_NAME)
     public void onCommand(DummyPlayer dummyPlayer, @Argument(value = "id") String id, @Argument(value = "bool") boolean simplified) {
         Optional<Announcement> announcement = announcements.get().stream()
                 .filter(a -> a.getId().equals(id))
@@ -71,14 +73,7 @@ public class AnnounceCommand implements CommandBase {
     }
 
     @Override
-    public Map<String, String> getTranslations() {
-        CommandEntity command = commands.get().getCommands().get("announce");
-
-        return Map.of(
-                "command." + command.getAliases().getFirst() + ".name", command.getUsage().replace("{alias}", String.join("|", command.getAliases())),
-                "command." + command.getAliases().getFirst() + ".permission", command.getPermission(),
-                "command." + command.getAliases().getFirst() + ".description", command.getDescription(),
-                "command." + command.getAliases().getFirst() + ".usage", command.getUsage()
-        );
+    public CommandEntity getCommandEntity() {
+        return commands.get().getCommands().get(COMMAND_NAME);
     }
 }

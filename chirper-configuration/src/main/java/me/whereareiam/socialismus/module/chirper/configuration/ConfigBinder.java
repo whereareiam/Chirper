@@ -41,10 +41,10 @@ public class ConfigBinder extends AbstractModule {
         bind(AnnouncersProvider.class).asEagerSingleton();
         bind(new TypeLiteral<List<Announcer>>() {}).toProvider(AnnouncersProvider.class);
 
-        bind(ChirperCommandsProvider.class);
+        bind(ChirperCommandsProvider.class).asEagerSingleton();
         bind(ChirperCommands.class).toProvider(ChirperCommandsProvider.class);
 
-        bind(ChirperMessagesProvider.class);
+        bind(ChirperMessagesProvider.class).asEagerSingleton();
         bind(ChirperMessages.class).toProvider(ChirperMessagesProvider.class);
     }
 
