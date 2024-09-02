@@ -9,6 +9,7 @@ import me.whereareiam.socialismus.api.model.player.DummyPlayer;
 import me.whereareiam.socialismus.api.model.serializer.SerializerContent;
 import me.whereareiam.socialismus.api.model.serializer.SerializerPlaceholder;
 import me.whereareiam.socialismus.api.output.command.CommandBase;
+import me.whereareiam.socialismus.api.output.command.CommandCooldown;
 import me.whereareiam.socialismus.module.chirper.api.input.AnnouncementBroadcaster;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.config.ChirperCommands;
@@ -46,6 +47,7 @@ public class AnnounceCommand extends CommandBase {
 
     @Command("%command." + COMMAND_NAME)
     @CommandDescription("%description." + COMMAND_NAME)
+    @CommandCooldown("%cooldown." + COMMAND_NAME)
     @Permission("%permission." + COMMAND_NAME)
     public void onCommand(DummyPlayer dummyPlayer, @Argument(value = "id") String id, @Argument(value = "bool") boolean simplified) {
         Optional<Announcement> announcement = announcements.get().stream()

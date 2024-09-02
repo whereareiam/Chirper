@@ -15,12 +15,17 @@ public class ChirperCommandsTemplate implements DefaultConfig<ChirperCommands> {
 
         // Default values
         CommandEntity announce = CommandEntity.builder()
+                .enabled(true)
                 .aliases(List.of("announce", "broadcast", "chirp"))
                 .permission("socialismus.admin")
                 .description("Announce command")
                 .usage("{command} {alias} <id> [bool]")
-                .enabled(true)
-                .build();
+                .cooldown(CommandEntity.Cooldown.builder()
+                        .enabled(true)
+                        .duration(2)
+                        .group("global")
+                        .build()
+                ).build();
 
         config.getCommands().put("announce", announce);
 
