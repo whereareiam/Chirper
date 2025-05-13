@@ -3,15 +3,15 @@
 # plugins
 shadow = "8.3.5"
 
-socialismus = "2.0.0-RC1"
+socialismus = "dev-SNAPSHOT"
 
 # compile time processing
-lombok = "1.18.36"
+lombok = "1.18.38"
 
 # general
 guice = "7.0.0"
-adventure = "4.17.0"
-jackson = "2.18.2"
+adventure = "4.21.0"
+jackson = "2.18.3"
 
 # cloud
 cloud-core = "2.0.0"

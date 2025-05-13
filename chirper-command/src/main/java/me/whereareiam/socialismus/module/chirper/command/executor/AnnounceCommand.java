@@ -3,7 +3,7 @@ package me.whereareiam.socialismus.module.chirper.command.executor;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import me.whereareiam.socialismus.api.input.serializer.SerializationService;
+import me.whereareiam.socialismus.api.Serializer;
 import me.whereareiam.socialismus.api.model.CommandEntity;
 import me.whereareiam.socialismus.api.model.player.DummyPlayer;
 import me.whereareiam.socialismus.api.model.serializer.SerializerContent;
@@ -24,58 +24,60 @@ import java.util.Optional;
 
 @Singleton
 public class AnnounceCommand extends CommandBase {
-    private static final String COMMAND_NAME = "announce";
+	private static final String COMMAND_NAME = "announce";
 
-    private final SerializationService serializer;
-    private final AnnouncementBroadcaster broadcaster;
+	private final AnnouncementBroadcaster broadcaster;
 
-    private final Provider<ChirperCommands> commands;
-    private final Provider<ChirperMessages> messages;
-    private final Provider<List<Announcement>> announcements;
+	private final Provider<ChirperCommands> commands;
+	private final Provider<ChirperMessages> messages;
+	private final Provider<List<Announcement>> announcements;
 
-    @Inject
-    public AnnounceCommand(SerializationService serializer, AnnouncementBroadcaster broadcaster, Provider<ChirperCommands> commands, Provider<ChirperMessages> messages,
-                           Provider<List<Announcement>> announcements) {
-        super(COMMAND_NAME);
-        this.serializer = serializer;
-        this.broadcaster = broadcaster;
+	@Inject
+	public AnnounceCommand(
+			AnnouncementBroadcaster broadcaster,
+			Provider<ChirperCommands> commands,
+			Provider<ChirperMessages> messages,
+			Provider<List<Announcement>> announcements
+	) {
+		super(COMMAND_NAME);
+		this.broadcaster = broadcaster;
 
-        this.commands = commands;
-        this.messages = messages;
-        this.announcements = announcements;
-    }
+		this.commands = commands;
+		this.messages = messages;
+		this.announcements = announcements;
+	}
 
-    @Command("%command." + COMMAND_NAME)
-    @CommandDescription("%description." + COMMAND_NAME)
-    @CommandCooldown("%cooldown." + COMMAND_NAME)
-    @Permission("%permission." + COMMAND_NAME)
-    public void onCommand(DummyPlayer dummyPlayer, @Argument(value = "id") String id, @Argument(value = "bool") boolean simplified) {
-        Optional<Announcement> announcement = announcements.get().stream()
-                .filter(a -> a.getId().equals(id))
-                .findFirst();
+	@Command("%command." + COMMAND_NAME)
+	@CommandDescription("%description." + COMMAND_NAME)
+	@CommandCooldown("%cooldown." + COMMAND_NAME)
+	@Permission("%permission." + COMMAND_NAME)
+	public void onCommand(DummyPlayer dummyPlayer, @Argument(value = "id") String id, @Argument(value = "bool") boolean simplified) {
+		Optional<Announcement> announcement = announcements.get().stream()
+				.filter(a -> a.getId().equals(id))
+				.findFirst();
 
-        if (announcement.isEmpty()) {
-            dummyPlayer.getAudience().sendMessage(
-                    serializer.format(new SerializerContent(
-                            dummyPlayer,
-                            List.of(new SerializerPlaceholder("{id}", id)),
-                            messages.get().getNoAnnouncementFound()
-                    )));
-            return;
-        }
+		if (announcement.isEmpty()) {
+			dummyPlayer.getAudience().sendMessage(
+					Serializer.serialize(new SerializerContent(
+							dummyPlayer,
+							List.of(new SerializerPlaceholder("{id}", id)),
+							messages.get().getNoAnnouncementFound()
+					)));
+			return;
+		}
 
-        dummyPlayer.getAudience().sendMessage(
-                serializer.format(new SerializerContent(
-                        dummyPlayer,
-                        List.of(new SerializerPlaceholder("{id}", id)),
-                        messages.get().getAnnouncementBroadcasted()
-                )));
+		dummyPlayer.getAudience().sendMessage(
+				Serializer.serialize(new SerializerContent(
+						dummyPlayer,
+						List.of(new SerializerPlaceholder("{id}", id)),
+						messages.get().getAnnouncementBroadcasted()
+				)));
 
-        broadcaster.broadcast(announcement.get(), simplified);
-    }
+		broadcaster.broadcast(announcement.get(), simplified);
+	}
 
-    @Override
-    public CommandEntity getCommandEntity() {
-        return commands.get().getCommands().get(COMMAND_NAME);
-    }
+	@Override
+	public CommandEntity getCommandEntity() {
+		return commands.get().getCommands().get(COMMAND_NAME);
+	}
 }
