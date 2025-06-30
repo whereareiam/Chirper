@@ -6,6 +6,7 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import me.whereareiam.socialismus.api.Logger;
 import me.whereareiam.socialismus.api.Reloadable;
+import me.whereareiam.socialismus.api.input.registry.ObjectMapperRegistry;
 import me.whereareiam.socialismus.api.input.registry.Registry;
 import me.whereareiam.socialismus.api.output.config.ConfigurationLoader;
 import me.whereareiam.socialismus.api.output.config.ConfigurationManager;
@@ -37,6 +38,7 @@ public class AnnouncementsProvider implements Provider<List<Announcement>>, Relo
 			@Named("announcementsPath") Path announcementsPath,
 			ConfigurationLoader configLoader,
 			ConfigurationManager configManager,
+			ObjectMapperRegistry objectMapperRegistry,
 			AnnouncementTemplate template,
 			AnnouncementDeserializer contentDeserializer,
 			Registry<Reloadable> registry
@@ -46,7 +48,7 @@ public class AnnouncementsProvider implements Provider<List<Announcement>>, Relo
 		this.configurationType = configManager.getConfigurationType();
 
 		configManager.addTemplate(AnnouncementsConfig.class, template);
-		configManager.addDeserializer(AnnouncementContent.class, contentDeserializer);
+		objectMapperRegistry.addDeserializer(AnnouncementContent.class, contentDeserializer);
 
 		registry.register(this);
 	}
