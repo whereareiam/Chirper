@@ -19,5 +19,11 @@
       "type": "BASE"
     }
   ],
+  "updater": {
+    "dev": {
+      "provider": "GITHUB",
+      "id": "whereareiam/Chirper"
+    }
+  },
   "main": "me.whereareiam.socialismus.module.chirper.Chirper"
 }
