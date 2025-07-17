@@ -1,9 +1,9 @@
 [versions]
 
 # plugins
-shadow = "8.3.5"
+shadow = "8.3.8"
 
-socialismus = "2.0.0-RC3"
+socialismus = "dev-SNAPSHOT"
 
 # compile time processing
 lombok = "1.18.38"
