@@ -6,7 +6,7 @@ shadow = "8.3.8"
 socialismus = "dev-SNAPSHOT"
 
 # compile time processing
-lombok = "1.18.38"
+lombok = "1.18.40"
 
 # general
 guice = "7.0.0"
