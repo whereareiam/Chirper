@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class MessageAnnouncement extends AnnouncementContent {
-    private List<String> message;
+	private List<String> messages;
 }

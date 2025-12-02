@@ -2,56 +2,50 @@ package me.whereareiam.socialismus.module.chirper.common.broadcast;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import me.whereareiam.socialismus.api.input.container.PlayerContainerService;
-import me.whereareiam.socialismus.api.input.requirement.RequirementEvaluatorService;
-import me.whereareiam.socialismus.api.model.player.DummyPlayer;
-import me.whereareiam.socialismus.api.model.scheduler.DelayedRunnableTask;
-import me.whereareiam.socialismus.api.output.Scheduler;
+import lombok.RequiredArgsConstructor;
+import me.whereareiam.socialismus.model.player.SocialismusPlayer;
+import me.whereareiam.socialismus.model.scheduler.DelayedRunnableTask;
 import me.whereareiam.socialismus.module.chirper.api.input.AnnouncementBroadcaster;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.AnnouncementContent;
 import me.whereareiam.socialismus.module.chirper.api.type.AnnouncementType;
+import me.whereareiam.socialismus.registry.PlayerRegistry;
+import me.whereareiam.socialismus.service.Scheduler;
+import me.whereareiam.socialismus.service.requirement.RequirementEvaluatorService;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Singleton
+@RequiredArgsConstructor(onConstructor_ = @Inject)
 public class BroadcastCoordinator implements AnnouncementBroadcaster {
     private final Scheduler scheduler;
-    private final PlayerContainerService playerContainer;
+    private final PlayerRegistry playerRegistry;
     private final BroadcastSender broadcastSender;
     private final RequirementEvaluatorService requirementEvaluator;
 
-    @Inject
-    public BroadcastCoordinator(Scheduler scheduler, PlayerContainerService playerContainer, BroadcastSender broadcastSender, RequirementEvaluatorService requirementEvaluator) {
-        this.scheduler = scheduler;
-        this.playerContainer = playerContainer;
-        this.broadcastSender = broadcastSender;
-        this.requirementEvaluator = requirementEvaluator;
-    }
+	private final Random random = new Random();
 
     @Override
     public void broadcast(Announcement announcement) {
-        final Random random = new Random();
-
-        Set<DummyPlayer> recipients = playerContainer.getPlayers();
+        Collection<SocialismusPlayer> recipients = playerRegistry.getPlayers();
         recipients = recipients.parallelStream()
                 .filter(r -> requirementEvaluator.check(announcement.getRequirements(), r))
                 .collect(Collectors.toSet());
 
-        if (announcement.getSettings().getDelay() > 0) {
-            Set<DummyPlayer> finalRecipients = recipients;
-            scheduler.schedule(DelayedRunnableTask.builder()
-                    .id(random.nextInt())
-                    .module("chirper")
-                    .delay(announcement.getSettings().getDelay() * 1000L)
-                    .runnable(() -> sendAnnouncement(announcement, finalRecipients))
-                    .build());
+		if (announcement.getSettings().getDelay() > 0) {
+			Collection<SocialismusPlayer> finalRecipients = recipients;
+			scheduler.schedule(DelayedRunnableTask.builder()
+					.id(random.nextInt())
+					.module("chirper")
+					.delay(announcement.getSettings().getDelay() * 1000L)
+					.runnable(() -> sendAnnouncement(announcement, finalRecipients))
+					.build());
 
-            return;
-        }
+			return;
+		}
 
         sendAnnouncement(announcement, recipients);
     }
@@ -63,15 +57,15 @@ public class BroadcastCoordinator implements AnnouncementBroadcaster {
             return;
         }
 
-        Set<DummyPlayer> recipients = playerContainer.getPlayers();
+        Collection<SocialismusPlayer> recipients = playerRegistry.getPlayers();
         sendAnnouncement(announcement, recipients);
     }
 
-    private void sendAnnouncement(Announcement announcement, Set<DummyPlayer> recipients) {
-        for (DummyPlayer recipient : recipients) {
-            for (Map.Entry<AnnouncementType, ? extends AnnouncementContent> entry : announcement.getContents().entrySet())
-                if (requirementEvaluator.check(entry.getValue().getRequirements(), recipient))
-                    broadcastSender.sendContent(entry.getKey(), entry.getValue(), recipient);
-        }
-    }
+	private void sendAnnouncement(Announcement announcement, Collection<SocialismusPlayer> recipients) {
+		for (SocialismusPlayer recipient : recipients) {
+			for (Map.Entry<AnnouncementType, ? extends AnnouncementContent> entry : announcement.getContents().entrySet())
+				if (requirementEvaluator.check(entry.getValue().getRequirements(), recipient))
+					broadcastSender.sendContent(entry.getKey(), entry.getValue(), recipient);
+		}
+	}
 }

@@ -4,48 +4,39 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import me.whereareiam.socialismus.api.Reloadable;
-import me.whereareiam.socialismus.api.input.registry.Registry;
-import me.whereareiam.socialismus.api.output.config.ConfigurationLoader;
-import me.whereareiam.socialismus.api.output.config.ConfigurationManager;
+import me.whereareiam.configura.Config;
+import me.whereareiam.socialismus.Reloadable;
 import me.whereareiam.socialismus.module.chirper.api.model.config.ChirperMessages;
 import me.whereareiam.socialismus.module.chirper.configuration.template.ChirperMessagesTemplate;
+import me.whereareiam.socialismus.registry.base.Registry;
 
 import java.nio.file.Path;
 
 @Singleton
 public class ChirperMessagesProvider implements Provider<ChirperMessages>, Reloadable {
-    private final Path workingPath;
-    private final ConfigurationLoader configLoader;
-    private ChirperMessages messages;
+	private final Path workingPath;
+	private ChirperMessages messages;
 
-    @Inject
-    public ChirperMessagesProvider(@Named("workingPath") Path workingPath, ConfigurationLoader configLoader, ConfigurationManager configManager,
-                                   ChirperMessagesTemplate template, Registry<Reloadable> registry) {
-        this.workingPath = workingPath;
-        this.configLoader = configLoader;
+	@Inject
+	public ChirperMessagesProvider(
+			@Named("workingPath") Path workingPath,
+			Registry<Reloadable> reloadableRegistry
+	) {
+		this.workingPath = workingPath;
 
-        configManager.addTemplate(ChirperMessages.class, template);
-        
-        registry.register(this);
-        get();
-    }
+		Config.registerTemplate(ChirperMessagesTemplate.class);
+		reloadableRegistry.register(this);
+	}
 
-    @Override
-    public ChirperMessages get() {
-        if (messages != null) return messages;
+	@Override
+	public ChirperMessages get() {
+		if (messages != null) return messages;
+		messages = Config.update(workingPath.resolve("messages"), ChirperMessages.class);
+		return messages;
+	}
 
-        load();
-
-        return messages;
-    }
-
-    @Override
-    public void reload() {
-        load();
-    }
-
-    private void load() {
-        messages = configLoader.load(workingPath.resolve("messages"), ChirperMessages.class);
-    }
+	@Override
+	public void reload() {
+		messages = Config.update(workingPath.resolve("messages"), ChirperMessages.class);
+	}
 }

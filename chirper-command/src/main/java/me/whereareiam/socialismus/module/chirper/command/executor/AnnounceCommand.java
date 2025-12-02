@@ -3,81 +3,67 @@ package me.whereareiam.socialismus.module.chirper.command.executor;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import me.whereareiam.socialismus.api.Serializer;
-import me.whereareiam.socialismus.api.model.CommandEntity;
-import me.whereareiam.socialismus.api.model.player.DummyPlayer;
-import me.whereareiam.socialismus.api.model.serializer.SerializerContent;
-import me.whereareiam.socialismus.api.model.serializer.SerializerPlaceholder;
-import me.whereareiam.socialismus.api.output.command.CommandBase;
-import me.whereareiam.socialismus.api.output.command.CommandCooldown;
+import me.whereareiam.commandant.annotation.Definition;
+import me.whereareiam.keystone.Actor;
+import me.whereareiam.keystone.model.SerializerContent;
+import me.whereareiam.socialismus.Serializer;
 import me.whereareiam.socialismus.module.chirper.api.input.AnnouncementBroadcaster;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
-import me.whereareiam.socialismus.module.chirper.api.model.config.ChirperCommands;
 import me.whereareiam.socialismus.module.chirper.api.model.config.ChirperMessages;
+import net.kyori.adventure.text.Component;
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
-import org.incendo.cloud.annotations.CommandDescription;
-import org.incendo.cloud.annotations.Permission;
+import org.incendo.cloud.annotations.Default;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class AnnounceCommand extends CommandBase {
-	private static final String COMMAND_NAME = "announce";
-
+public class AnnounceCommand {
 	private final AnnouncementBroadcaster broadcaster;
-
-	private final Provider<ChirperCommands> commands;
 	private final Provider<ChirperMessages> messages;
 	private final Provider<List<Announcement>> announcements;
 
 	@Inject
 	public AnnounceCommand(
-			AnnouncementBroadcaster broadcaster,
-			Provider<ChirperCommands> commands,
-			Provider<ChirperMessages> messages,
-			Provider<List<Announcement>> announcements
+			@NotNull AnnouncementBroadcaster broadcaster,
+			@NotNull Provider<ChirperMessages> messages,
+			@NotNull Provider<List<Announcement>> announcements
 	) {
-		super(COMMAND_NAME);
 		this.broadcaster = broadcaster;
-
-		this.commands = commands;
 		this.messages = messages;
 		this.announcements = announcements;
 	}
 
-	@Command("%command." + COMMAND_NAME)
-	@CommandDescription("%description." + COMMAND_NAME)
-	@CommandCooldown("%cooldown." + COMMAND_NAME)
-	@Permission("%permission." + COMMAND_NAME)
-	public void onCommand(DummyPlayer dummyPlayer, @Argument(value = "id") String id, @Argument(value = "bool") boolean simplified) {
+	@Definition("announce")
+	@Command("socialismus announce <id> [simplified]")
+	public void command(
+			@NotNull Actor sender,
+			@Argument("id") @NotNull String id,
+			@Argument("simplified") @Default("false") boolean simplified
+	) {
 		Optional<Announcement> announcement = announcements.get().stream()
 				.filter(a -> a.getId().equals(id))
 				.findFirst();
 
 		if (announcement.isEmpty()) {
-			dummyPlayer.getAudience().sendMessage(
-					Serializer.serialize(new SerializerContent(
-							dummyPlayer,
-							List.of(new SerializerPlaceholder("{id}", id)),
-							messages.get().getNoAnnouncementFound()
-					)));
+			Component component = Serializer.serialize(SerializerContent.builder()
+					.receiver(sender)
+					.message(messages.get().getNoAnnouncementFound())
+					.placeholder("{id}", id)
+					.build());
+			sender.sendMessage(component);
 			return;
 		}
 
-		dummyPlayer.getAudience().sendMessage(
-				Serializer.serialize(new SerializerContent(
-						dummyPlayer,
-						List.of(new SerializerPlaceholder("{id}", id)),
-						messages.get().getAnnouncementBroadcasted()
-				)));
+		Component component = Serializer.serialize(SerializerContent.builder()
+				.receiver(sender)
+				.message(messages.get().getAnnouncementBroadcasted())
+				.placeholder("{id}", id)
+				.build());
+		sender.sendMessage(component);
 
 		broadcaster.broadcast(announcement.get(), simplified);
-	}
-
-	@Override
-	public CommandEntity getCommandEntity() {
-		return commands.get().getCommands().get(COMMAND_NAME);
 	}
 }
