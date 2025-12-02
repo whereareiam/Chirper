@@ -1,4 +1,4 @@
-package me.whereareiam.socialismus.module.chirper.configuration.provider;
+package me.whereareiam.socialismus.module.chirper.common.config.provider;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -7,7 +7,7 @@ import com.google.inject.name.Named;
 import me.whereareiam.configura.Config;
 import me.whereareiam.socialismus.Reloadable;
 import me.whereareiam.socialismus.module.chirper.api.model.config.ChirperCommands;
-import me.whereareiam.socialismus.module.chirper.configuration.template.ChirperCommandsTemplate;
+import me.whereareiam.socialismus.module.chirper.common.config.template.ChirperCommandsTemplate;
 import me.whereareiam.socialismus.registry.base.Registry;
 
 import java.nio.file.Path;

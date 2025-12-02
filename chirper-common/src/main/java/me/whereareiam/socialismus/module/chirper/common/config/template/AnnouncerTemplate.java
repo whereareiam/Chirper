@@ -1,9 +1,9 @@
-package me.whereareiam.socialismus.module.chirper.configuration.template;
+package me.whereareiam.socialismus.module.chirper.common.config.template;
 
 import me.whereareiam.configura.TemplateProvider;
 import me.whereareiam.socialismus.module.chirper.api.model.announcer.Announcer;
 import me.whereareiam.socialismus.module.chirper.api.type.OrderType;
-import me.whereareiam.socialismus.module.chirper.configuration.dynamic.AnnouncersConfig;
+import me.whereareiam.socialismus.module.chirper.common.config.dynamic.AnnouncersConfig;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package me.whereareiam.socialismus.module.chirper.configuration.template;
+package me.whereareiam.socialismus.module.chirper.common.config.template;
 
 import com.google.inject.Singleton;
 import me.whereareiam.configura.TemplateProvider;

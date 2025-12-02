@@ -39,7 +39,6 @@ mockito-junit = { group = "org.mockito", name = "mockito-junit-jupiter", version
 
 [bundles]
 
-cloud = ["cloud-annotations"]
 testing = ["junit-jupiter", "mockito-core", "mockito-junit"]
 
 [plugins]

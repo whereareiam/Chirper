@@ -1,4 +1,4 @@
-package me.whereareiam.socialismus.module.chirper.configuration.provider;
+package me.whereareiam.socialismus.module.chirper.common.config.provider;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -9,8 +9,8 @@ import me.whereareiam.socialismus.Reloadable;
 import me.whereareiam.socialismus.config.ConfigurationTypeResolver;
 import me.whereareiam.socialismus.logging.Logger;
 import me.whereareiam.socialismus.module.chirper.api.model.announcer.Announcer;
-import me.whereareiam.socialismus.module.chirper.configuration.dynamic.AnnouncersConfig;
-import me.whereareiam.socialismus.module.chirper.configuration.template.AnnouncerTemplate;
+import me.whereareiam.socialismus.module.chirper.common.config.dynamic.AnnouncersConfig;
+import me.whereareiam.socialismus.module.chirper.common.config.template.AnnouncerTemplate;
 import me.whereareiam.socialismus.registry.base.Registry;
 import me.whereareiam.socialismus.type.ConfigurationType;
 

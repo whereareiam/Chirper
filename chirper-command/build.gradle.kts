@@ -1,4 +1,4 @@
 dependencies {
-    "compileOnly"(project(":chirper-common-api"))
-    "compileOnly"(libs.bundles.cloud)
+    "compileOnly"(project(":chirper-api"))
+    "compileOnly"(libs.cloud.annotations)
 }

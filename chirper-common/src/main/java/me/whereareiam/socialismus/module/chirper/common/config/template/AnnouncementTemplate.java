@@ -1,11 +1,11 @@
-package me.whereareiam.socialismus.module.chirper.configuration.template;
+package me.whereareiam.socialismus.module.chirper.common.config.template;
 
 import me.whereareiam.configura.TemplateProvider;
 import me.whereareiam.socialismus.model.requirement.RequirementGroup;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.variant.*;
 import me.whereareiam.socialismus.module.chirper.api.type.AnnouncementType;
-import me.whereareiam.socialismus.module.chirper.configuration.dynamic.AnnouncementsConfig;
+import me.whereareiam.socialismus.module.chirper.common.config.dynamic.AnnouncementsConfig;
 import me.whereareiam.socialismus.type.requirement.RequirementOperatorType;
 import net.kyori.adventure.bossbar.BossBar;
 

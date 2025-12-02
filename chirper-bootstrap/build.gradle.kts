@@ -6,8 +6,7 @@ plugins {
 }
 
 dependencies {
-    "implementation"(project(":chirper-configuration"))
-    "implementation"(project(":chirper-common-api"))
+    "implementation"(project(":chirper-api"))
     "implementation"(project(":chirper-command"))
     "implementation"(project(":chirper-common"))
 }

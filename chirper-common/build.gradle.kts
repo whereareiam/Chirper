@@ -1,5 +1,5 @@
 dependencies {
-    "compileOnly"(project(":chirper-common-api"))
+    "compileOnly"(project(":chirper-api"))
 }
 
 tasks.test {

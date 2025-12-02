@@ -9,7 +9,6 @@ import me.whereareiam.socialismus.module.SocialisticModule;
 import me.whereareiam.socialismus.module.chirper.command.CommandRegistrar;
 import me.whereareiam.socialismus.module.chirper.common.AnnouncerController;
 import me.whereareiam.socialismus.module.chirper.common.CommonConfiguration;
-import me.whereareiam.socialismus.module.chirper.configuration.ConfigBinder;
 import me.whereareiam.socialismus.registry.PlayerRegistry;
 import me.whereareiam.socialismus.registry.base.Registry;
 import me.whereareiam.socialismus.service.CommandService;
@@ -36,8 +35,7 @@ public class Chirper extends SocialisticModule {
 						parentInjector.getInstance(CommandService.class),
 						parentInjector.getInstance(PlayerRegistry.class)
 				),
-				new ConfigBinder(workingPath),
-				new CommonConfiguration()
+				new CommonConfiguration(workingPath)
 		);
 	}
 
