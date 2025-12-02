@@ -5,8 +5,9 @@ import me.whereareiam.socialismus.module.chirper.api.input.AnnouncementBroadcast
 import me.whereareiam.socialismus.module.chirper.common.broadcast.BroadcastCoordinator;
 
 public class CommonConfiguration extends AbstractModule {
-    @Override
-    protected void configure() {
-        bind(AnnouncementBroadcaster.class).to(BroadcastCoordinator.class);
-    }
+	@Override
+	protected void configure() {
+		// Bind broadcaster
+		bind(AnnouncementBroadcaster.class).to(BroadcastCoordinator.class);
+	}
 }

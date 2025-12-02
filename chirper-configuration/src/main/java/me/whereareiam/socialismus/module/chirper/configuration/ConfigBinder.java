@@ -1,8 +1,10 @@
 package me.whereareiam.socialismus.module.chirper.configuration;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
-import com.google.inject.name.Names;
+import com.google.inject.name.Named;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.announcer.Announcer;
 import me.whereareiam.socialismus.module.chirper.api.model.config.ChirperCommands;
@@ -30,10 +32,7 @@ public class ConfigBinder extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(Path.class).annotatedWith(Names.named("workingPath")).toInstance(workingPath);
-        bind(Path.class).annotatedWith(Names.named("announcementsPath")).toInstance(announcementsPath);
-        bind(Path.class).annotatedWith(Names.named("announcersPath")).toInstance(announcersPath);
-        createDirectories();
+	    requestInjection(this);
 
         bind(AnnouncementsProvider.class).asEagerSingleton();
         bind(new TypeLiteral<List<Announcement>>() {}).toProvider(AnnouncementsProvider.class);
@@ -48,13 +47,33 @@ public class ConfigBinder extends AbstractModule {
         bind(ChirperMessages.class).toProvider(ChirperMessagesProvider.class);
     }
 
-    private void createDirectories() {
-        try {
-            Files.createDirectories(workingPath);
-            Files.createDirectories(announcementsPath);
-            Files.createDirectories(announcersPath);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to create directories", e);
-        }
-    }
+	@Provides
+	@Singleton
+	@Named("workingPath")
+	Path provideWorkingPath() {
+		return ensureDirectory(workingPath, "workingPath");
+	}
+
+	@Provides
+	@Singleton
+	@Named("announcementsPath")
+	Path provideAnnouncementsPath() {
+		return ensureDirectory(announcementsPath, "announcementsPath");
+	}
+
+	@Provides
+	@Singleton
+	@Named("announcersPath")
+	Path provideAnnouncersPath() {
+		return ensureDirectory(announcersPath, "announcersPath");
+	}
+
+	private Path ensureDirectory(Path path, String label) {
+		try {
+			Files.createDirectories(path);
+			return path;
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to create " + label + " directory", e);
+		}
+	}
 }

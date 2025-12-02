@@ -14,7 +14,8 @@ allprojects {
 subprojects {
     repositories {
         mavenCentral()
-        maven("https://jitpack.io")
+        maven("https://maven.whereareiam.me/release")
+        maven("https://maven.whereareiam.me/development")
     }
 
     dependencies {
@@ -22,9 +23,7 @@ subprojects {
         "compileOnly"(rootProject.libs.lombok)
         "annotationProcessor"(rootProject.libs.lombok)
 
-        // general
         "compileOnly"(rootProject.libs.guice)
-        "compileOnly"(rootProject.libs.adventure)
         "compileOnly"(rootProject.libs.socialismus)
     }
 }

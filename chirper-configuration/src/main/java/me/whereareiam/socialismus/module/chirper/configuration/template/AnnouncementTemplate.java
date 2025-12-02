@@ -1,22 +1,20 @@
 package me.whereareiam.socialismus.module.chirper.configuration.template;
 
-import me.whereareiam.socialismus.api.model.requirement.RequirementGroup;
-import me.whereareiam.socialismus.api.output.DefaultConfig;
-import me.whereareiam.socialismus.api.type.requirement.RequirementOperatorType;
+import me.whereareiam.configura.TemplateProvider;
+import me.whereareiam.socialismus.model.requirement.RequirementGroup;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.variant.*;
 import me.whereareiam.socialismus.module.chirper.api.type.AnnouncementType;
 import me.whereareiam.socialismus.module.chirper.configuration.dynamic.AnnouncementsConfig;
+import me.whereareiam.socialismus.type.requirement.RequirementOperatorType;
 import net.kyori.adventure.bossbar.BossBar;
 
 import java.util.List;
 import java.util.Map;
 
-public class AnnouncementTemplate implements DefaultConfig<AnnouncementsConfig> {
+public class AnnouncementTemplate implements TemplateProvider<AnnouncementsConfig> {
 	@Override
-	public AnnouncementsConfig getDefault() {
-		AnnouncementsConfig config = new AnnouncementsConfig();
-
+	public AnnouncementsConfig supply(AnnouncementsConfig config) {
 		Announcement example0 = Announcement.builder()
 				.id("example0")
 				.enabled(true)
@@ -25,7 +23,7 @@ public class AnnouncementTemplate implements DefaultConfig<AnnouncementsConfig> 
 						.repeat(true)
 						.build()
 				).contents(Map.of(AnnouncementType.MESSAGE, MessageAnnouncement.builder()
-						.message(List.of(
+						.messages(List.of(
 								"",
 								"<gold><bold> Socialismus:</bold></gold>",
 								"<white>  Thanks for installing my plugin!",

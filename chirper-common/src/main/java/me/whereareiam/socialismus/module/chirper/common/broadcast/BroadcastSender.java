@@ -3,8 +3,8 @@ package me.whereareiam.socialismus.module.chirper.common.broadcast;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.RequiredArgsConstructor;
-import me.whereareiam.socialismus.api.Serializer;
-import me.whereareiam.socialismus.api.model.player.DummyPlayer;
+import me.whereareiam.keystone.Actor;
+import me.whereareiam.socialismus.Serializer;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.AnnouncementContent;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.variant.*;
 import me.whereareiam.socialismus.module.chirper.api.type.AnnouncementType;
@@ -23,12 +23,12 @@ import java.time.temporal.ChronoUnit;
 public class BroadcastSender {
 	private final BossBarUtil bossBarUtil;
 
-	public void sendContent(AnnouncementType type, AnnouncementContent content, DummyPlayer recipient) {
+	public void sendContent(AnnouncementType type, AnnouncementContent content, Actor recipient) {
 		Audience audience = recipient.getAudience();
 
 		switch (type) {
 			case MESSAGE -> audience.sendMessage(
-					Serializer.serialize(recipient, String.join("\n", ((MessageAnnouncement) content).getMessage()))
+					Serializer.serialize(recipient, String.join("\n", ((MessageAnnouncement) content).getMessages()))
 			);
 			case BOSSBAR -> bossBarUtil.createTemporaryBossBar(
 					recipient,
