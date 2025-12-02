@@ -6,7 +6,7 @@ import com.google.inject.Singleton;
 import me.whereareiam.socialismus.Reloadable;
 import me.whereareiam.socialismus.logging.Logger;
 import me.whereareiam.socialismus.model.scheduler.PeriodicalRunnableTask;
-import me.whereareiam.socialismus.module.chirper.api.input.AnnouncementBroadcaster;
+import me.whereareiam.socialismus.module.chirper.api.AnnouncementBroadcaster;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.announcer.Announcer;
 import me.whereareiam.socialismus.module.chirper.api.model.announcer.InternalAnnouncer;

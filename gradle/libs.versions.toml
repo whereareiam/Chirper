@@ -12,7 +12,11 @@ lombok = "1.18.42"
 guice = "7.0.0"
 
 # cloud
-cloud-core = "2.0.0"
+cloud = "2.0.0"
+
+# testing
+junit = "6.0.0"
+mockito = "5.20.0"
 
 [libraries]
 
@@ -25,12 +29,18 @@ lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" 
 guice = { group = "com.google.inject", name = "guice", version.ref = "guice" }
 
 # cloud
-cloud-core = { group = "org.incendo", name = "cloud-core", version.ref = "cloud-core" }
-cloud-annotations = { group = "org.incendo", name = "cloud-annotations", version.ref = "cloud-core" }
+cloud-annotations = { group = "org.incendo", name = "cloud-annotations", version.ref = "cloud" }
+
+# testing
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
+junit-platform = { group = "org.junit.platform", name = "junit-platform-launcher" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+mockito-junit = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockito" }
 
 [bundles]
 
-cloud = ["cloud-core", "cloud-annotations"]
+cloud = ["cloud-annotations"]
+testing = ["junit-jupiter", "mockito-core", "mockito-junit"]
 
 [plugins]
 

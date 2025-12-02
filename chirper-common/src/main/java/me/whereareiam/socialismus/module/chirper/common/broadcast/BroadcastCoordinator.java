@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import me.whereareiam.socialismus.model.player.SocialismusPlayer;
 import me.whereareiam.socialismus.model.scheduler.DelayedRunnableTask;
-import me.whereareiam.socialismus.module.chirper.api.input.AnnouncementBroadcaster;
+import me.whereareiam.socialismus.module.chirper.api.AnnouncementBroadcaster;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.AnnouncementContent;
 import me.whereareiam.socialismus.module.chirper.api.type.AnnouncementType;

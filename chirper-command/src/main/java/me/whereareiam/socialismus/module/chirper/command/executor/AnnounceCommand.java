@@ -7,7 +7,7 @@ import me.whereareiam.commandant.annotation.Definition;
 import me.whereareiam.keystone.Actor;
 import me.whereareiam.keystone.model.SerializerContent;
 import me.whereareiam.socialismus.Serializer;
-import me.whereareiam.socialismus.module.chirper.api.input.AnnouncementBroadcaster;
+import me.whereareiam.socialismus.module.chirper.api.AnnouncementBroadcaster;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.config.ChirperMessages;
 import net.kyori.adventure.text.Component;

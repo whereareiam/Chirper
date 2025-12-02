@@ -1,4 +1,4 @@
-package me.whereareiam.socialismus.module.chirper.api.input;
+package me.whereareiam.socialismus.module.chirper.api;
 
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 
