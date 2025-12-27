@@ -10,8 +10,6 @@ lombok = "1.18.42"
 
 # general
 guice = "7.0.0"
-
-# cloud
 cloud = "2.0.0"
 
 # testing

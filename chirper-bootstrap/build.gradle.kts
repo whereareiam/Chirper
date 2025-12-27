@@ -16,7 +16,6 @@ tasks.withType<ShadowJar> {
     archiveClassifier.set("")
 
     relocate("com.google.inject", "me.whereareiam.socialismus.library.guice")
-    relocate("com.fasterxml.jackson", "me.whereareiam.socialismus.library.jackson")
 
     val defaultDestination = rootProject.layout.buildDirectory.dir("libs")
 

@@ -1,7 +1,6 @@
 package me.whereareiam.socialismus.module.chirper.common.config.provider;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import me.whereareiam.configura.Config;
@@ -9,6 +8,7 @@ import me.whereareiam.socialismus.Reloadable;
 import me.whereareiam.socialismus.config.ConfigurationTypeResolver;
 import me.whereareiam.socialismus.logging.Logger;
 import me.whereareiam.socialismus.module.chirper.api.model.announcer.Announcer;
+import me.whereareiam.socialismus.module.chirper.common.config.ChirperConfigProvider;
 import me.whereareiam.socialismus.module.chirper.common.config.dynamic.AnnouncersConfig;
 import me.whereareiam.socialismus.module.chirper.common.config.template.AnnouncerTemplate;
 import me.whereareiam.socialismus.registry.base.Registry;
@@ -23,41 +23,25 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Singleton
-public class AnnouncersProvider implements Provider<List<Announcer>>, Reloadable {
+public class AnnouncersProvider extends ChirperConfigProvider<List<Announcer>> {
 	private final Path announcersPath;
 	private final ConfigurationType configurationType;
-
-	private List<Announcer> announcers;
 
 	@Inject
 	public AnnouncersProvider(
 			@Named("announcersPath") Path announcersPath,
+			@Named("workingPath") Path workingPath,
 			ConfigurationTypeResolver typeResolver,
 			Registry<Reloadable> registry
 	) {
+		super(workingPath, registry);
 		this.announcersPath = announcersPath;
 		this.configurationType = typeResolver.getConfigurationType();
-
-		Config.registerTemplate(AnnouncerTemplate.class);
-		registry.register(this);
 	}
 
 	@Override
-	public List<Announcer> get() {
-		if (announcers != null) return announcers;
-
-		loadAnnouncers();
-
-		return announcers;
-	}
-
-	@Override
-	public void reload() {
-		loadAnnouncers();
-	}
-
-	private void loadAnnouncers() {
-		announcers = new ArrayList<>();
+	protected List<Announcer> load() {
+		List<Announcer> announcers = new ArrayList<>();
 		try (Stream<Path> paths = Files.list(announcersPath)) {
 			paths.filter(Files::isRegularFile)
 					.filter(path -> path.getFileName().toString().endsWith(configurationType.getExtension()))
@@ -72,8 +56,7 @@ public class AnnouncersProvider implements Provider<List<Announcer>>, Reloadable
 					});
 		} catch (IOException e) {
 			Logger.severe("Failed to load announcers configurations: " + e.getMessage());
-			announcers = Collections.emptyList();
-			return;
+			return Collections.emptyList();
 		}
 
 		if (announcers.isEmpty())
@@ -81,6 +64,12 @@ public class AnnouncersProvider implements Provider<List<Announcer>>, Reloadable
 
 		// Remove duplicates
 		announcers.removeIf(announcer -> announcers.stream().anyMatch(c -> c != announcer));
+		return announcers;
+	}
+
+	@Override
+	protected void registerTemplate() {
+		Config.registerTemplate(AnnouncerTemplate.class);
 	}
 
 	private List<Announcer> addAnnouncersFromConfig(Path path) {
