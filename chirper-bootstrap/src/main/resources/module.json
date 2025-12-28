@@ -21,7 +21,7 @@
   ],
   "updater": {
     "release": {
-      "provider": "GITHUB",
+      "provider": "MODRINTH",
       "id": "whereareiam/Chirper"
     },
     "dev": {
