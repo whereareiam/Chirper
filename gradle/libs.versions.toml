@@ -13,7 +13,7 @@ guice = "7.0.0"
 cloud = "2.0.0"
 
 # testing
-junit = "6.0.1"
+junit = "6.0.3"
 mockito = "5.20.0"
 
 [libraries]
