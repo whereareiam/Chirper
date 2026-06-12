@@ -1,6 +1,6 @@
-package me.whereareiam.socialismus.module.chirper.common.config.template;
+package me.whereareiam.socialismus.module.chirper.common.config.defaults;
 
-import me.whereareiam.configura.TemplateProvider;
+import me.whereareiam.configura.merge.defaults.DefaultsProvider;
 import me.whereareiam.socialismus.model.requirement.RequirementGroup;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.Announcement;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.variant.*;
@@ -12,7 +12,7 @@ import net.kyori.adventure.bossbar.BossBar;
 import java.util.List;
 import java.util.Map;
 
-public class AnnouncementTemplate implements TemplateProvider<AnnouncementsConfig> {
+public class AnnouncementsDefaults implements DefaultsProvider<AnnouncementsConfig> {
 	@Override
 	public AnnouncementsConfig supply(AnnouncementsConfig config) {
 		Announcement example0 = Announcement.builder()

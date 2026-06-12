@@ -5,10 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import me.whereareiam.configura.annotation.Polymorphic;
+import me.whereareiam.configura.feature.polymorphic.api.annotation.Polymorphic;
 import me.whereareiam.socialismus.model.requirement.RequirementGroup;
 import me.whereareiam.socialismus.module.chirper.api.model.announcement.variant.*;
+import org.jetbrains.annotations.Nullable;
 
+/**
+ * Base polymorphic payload for a single announcement output variant.
+ * Concrete subtypes are inferred from their distinctive fields during configuration loading.
+ */
 @Getter
 @ToString
 @NoArgsConstructor
@@ -24,5 +29,5 @@ import me.whereareiam.socialismus.module.chirper.api.model.announcement.variant.
 		defaultTarget = ActionbarAnnouncement.class
 )
 public class AnnouncementContent {
-	private RequirementGroup requirements;
+	private @Nullable RequirementGroup requirements;
 }

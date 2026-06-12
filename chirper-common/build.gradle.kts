@@ -1,7 +1,7 @@
-dependencies {
-    "compileOnly"(project(":chirper-api"))
+plugins {
+    id("shared")
 }
 
-tasks.test {
-    useJUnitPlatform()
+dependencies {
+    compileOnly(project(":chirper-api"))
 }

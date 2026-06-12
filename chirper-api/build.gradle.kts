@@ -1,25 +1,17 @@
-java {
-    withSourcesJar()
-    withJavadocJar()
+plugins {
+    id("api")
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-            artifactId = "Chirper"
-            pom {
-                name.set("Chirper")
-                description.set("Public API for Chirper - Socialismus announcement module")
-            }
-        }
+toolkitPublish {
+    artifactId.set("Chirper")
+
+    pom {
+        name.set("Chirper")
+        description.set("Public API for Chirper - Socialismus announcement module")
     }
-}
 
-tasks.withType<Javadoc> {
-    (options as StandardJavadocDocletOptions).apply {
-        addStringOption("Xdoclint:none", "-quiet")
-        title = "Chirper API"
-        windowTitle = "Chirper API"
+    javadoc {
+        title.set("Chirper API")
+        windowTitle.set("Chirper API")
     }
 }

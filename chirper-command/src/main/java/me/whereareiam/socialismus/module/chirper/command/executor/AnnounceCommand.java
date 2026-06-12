@@ -51,7 +51,7 @@ public class AnnounceCommand {
 			Component component = Serializer.serialize(SerializerContent.builder()
 					.receiver(sender)
 					.message(messages.get().getNoAnnouncementFound())
-					.placeholder("{id}", id)
+					.placeholder("id", id)
 					.build());
 			sender.sendMessage(component);
 			return;
@@ -60,7 +60,7 @@ public class AnnounceCommand {
 		Component component = Serializer.serialize(SerializerContent.builder()
 				.receiver(sender)
 				.message(messages.get().getAnnouncementBroadcasted())
-				.placeholder("{id}", id)
+				.placeholder("id", id)
 				.build());
 		sender.sendMessage(component);
 

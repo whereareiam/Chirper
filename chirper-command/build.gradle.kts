@@ -1,4 +1,9 @@
+plugins {
+    id("shared")
+}
+
 dependencies {
-    "compileOnly"(project(":chirper-api"))
-    "compileOnly"(libs.cloud.annotations)
+    compileOnly(project(":chirper-api"))
+    compileOnly(libs.commandant)
+    compileOnly(libs.cloud.annotations)
 }

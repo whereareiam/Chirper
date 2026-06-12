@@ -1,8 +1,6 @@
-rootProject.name = "Chirper"
+rootProject.name = "build-logic"
 
 pluginManagement {
-    includeBuild("build-logic")
-
     repositories {
         gradlePluginPortal()
         mavenCentral()
@@ -12,16 +10,16 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
-
     repositories {
+        gradlePluginPortal()
         mavenCentral()
         maven("https://maven.whereareiam.me/release")
         maven("https://maven.whereareiam.me/development")
     }
-}
 
-include("chirper-api")
-include("chirper-bootstrap")
-include("chirper-command")
-include("chirper-common")
+    versionCatalogs {
+        create("libs") {
+            from(files("../gradle/libs.versions.toml"))
+        }
+    }
+}

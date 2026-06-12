@@ -9,14 +9,14 @@ import me.whereareiam.socialismus.module.SocialisticModule;
 import me.whereareiam.socialismus.module.chirper.command.CommandRegistrar;
 import me.whereareiam.socialismus.module.chirper.common.AnnouncerController;
 import me.whereareiam.socialismus.module.chirper.common.CommonConfiguration;
-import me.whereareiam.socialismus.registry.PlayerRegistry;
 import me.whereareiam.socialismus.registry.base.Registry;
 import me.whereareiam.socialismus.service.CommandService;
 import me.whereareiam.socialismus.service.PlatformInteractor;
 import me.whereareiam.socialismus.service.Scheduler;
 import me.whereareiam.socialismus.service.requirement.RequirementEvaluatorService;
-import me.whereareiam.socialismus.config.ConfigurationTypeResolver;
+import me.whereareiam.socialismus.registry.PlayerRegistry;
 
+@SuppressWarnings("unused")
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class Chirper extends SocialisticModule {
 	private final Injector parentInjector;
@@ -29,7 +29,6 @@ public class Chirper extends SocialisticModule {
 				new ChirperInjectorConfiguration(
 						parentInjector.getInstance(Scheduler.class),
 						parentInjector.getInstance(PlatformInteractor.class),
-						parentInjector.getInstance(ConfigurationTypeResolver.class),
 						reloadableRegistry,
 						parentInjector.getInstance(RequirementEvaluatorService.class),
 						parentInjector.getInstance(CommandService.class),

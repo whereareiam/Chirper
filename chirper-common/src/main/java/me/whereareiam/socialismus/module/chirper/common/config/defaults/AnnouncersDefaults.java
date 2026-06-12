@@ -1,13 +1,13 @@
-package me.whereareiam.socialismus.module.chirper.common.config.template;
+package me.whereareiam.socialismus.module.chirper.common.config.defaults;
 
-import me.whereareiam.configura.TemplateProvider;
+import me.whereareiam.configura.merge.defaults.DefaultsProvider;
 import me.whereareiam.socialismus.module.chirper.api.model.announcer.Announcer;
 import me.whereareiam.socialismus.module.chirper.api.type.OrderType;
 import me.whereareiam.socialismus.module.chirper.common.config.dynamic.AnnouncersConfig;
 
 import java.util.List;
 
-public class AnnouncerTemplate implements TemplateProvider<AnnouncersConfig> {
+public class AnnouncersDefaults implements DefaultsProvider<AnnouncersConfig> {
 	@Override
 	public AnnouncersConfig supply(AnnouncersConfig config) {
 		Announcer example = Announcer.builder()
