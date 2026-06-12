@@ -11,6 +11,7 @@ lombok = "1.18.46"
 
 # general
 guice = "7.0.0"
+adventure = "4.25.0"
 cloud = "2.0.0"
 annotations = "26.1.0"
 commandant = "dev-42806f6"
@@ -21,15 +22,18 @@ mockito = "5.23.0"
 
 [libraries]
 
-socialismus-module-api = { group = "me.whereareiam.socialismus.module", name = "api", version.ref = "socialismus" }
+# plugins
 shadow-gradle-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version.ref = "shadow" }
 toolkit-publish-maven = { group = "me.whereareiam.toolkit", name = "publish-maven", version.ref = "toolkit" }
+
+socialismus-module-api = { group = "me.whereareiam.socialismus.module", name = "api", version.ref = "socialismus" }
 
 # compile time processing
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
 
 # general
 guice = { group = "com.google.inject", name = "guice", version.ref = "guice" }
+adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
 cloud-annotations = { group = "org.incendo", name = "cloud-annotations", version.ref = "cloud" }
 annotations = { group = "org.jetbrains", name = "annotations", version.ref = "annotations" }
 commandant = { group = "me.whereareiam", name = "commandant", version.ref = "commandant" }

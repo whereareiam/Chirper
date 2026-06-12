@@ -61,10 +61,10 @@ public class AnnouncerController implements Reloadable {
 
 			switch (announcer.getSettings().getOrder()) {
 				case DESCENDING:
-					filteredAnnouncements.sort(Comparator.comparing(Announcement::getId));
+					filteredAnnouncements.sort(Comparator.comparing(Announcement::getId).reversed());
 					break;
 				case ASCENDING:
-					filteredAnnouncements.sort(Comparator.comparing(Announcement::getId).reversed());
+					filteredAnnouncements.sort(Comparator.comparing(Announcement::getId));
 					break;
 				case RANDOM:
 					Collections.shuffle(filteredAnnouncements);
@@ -79,9 +79,9 @@ public class AnnouncerController implements Reloadable {
 							.build(),
 					filteredAnnouncements
 			);
-
-			runAnnouncers();
 		}
+
+		runAnnouncers();
 	}
 
 	private void runAnnouncers() {

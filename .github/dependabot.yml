@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "Dependency"
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
@@ -12,6 +14,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "Dependency"
     open-pull-requests-limit: 5
     labels:
       - "dependencies"

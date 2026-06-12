@@ -20,11 +20,20 @@ dependencies {
     add("testAnnotationProcessor", libs.findLibrary("lombok").get())
 
     add("compileOnly", libs.findLibrary("annotations").get())
+    add("testCompileOnly", libs.findLibrary("annotations").get())
     add("compileOnly", libs.findLibrary("guice").get())
+    add("testImplementation", libs.findLibrary("guice").get())
+    add("testImplementation", libs.findLibrary("adventure-api").get())
     add("compileOnly", libs.findLibrary("socialismus-module-api").get())
+    add("testImplementation", libs.findLibrary("socialismus-module-api").get())
 
     add("testImplementation", libs.findBundle("testing").get())
     add("testRuntimeOnly", libs.findLibrary("junit-platform").get())
+
+    if (path != ":chirper-api") {
+        add("compileOnly", project(":chirper-api"))
+        add("testImplementation", project(":chirper-api"))
+    }
 }
 
 tasks.withType<Test>().configureEach {
