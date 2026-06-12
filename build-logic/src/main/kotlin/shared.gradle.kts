@@ -1,6 +1,5 @@
 plugins {
     `java-library`
-    `maven-publish`
 }
 
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -30,19 +29,4 @@ dependencies {
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
-}
-
-extensions.configure<PublishingExtension> {
-    repositories {
-        maven {
-            val realm = (System.getenv("PUBLISH_REALM")
-                ?: if ((System.getenv("VERSION") ?: "dev").contains("dev", true)) "development" else "release")
-                .lowercase()
-            url = uri("https://maven.whereareiam.me/$realm")
-            credentials {
-                username = System.getenv("PUBLISH_USER") ?: ""
-                password = System.getenv("PUBLISH_TOKEN") ?: ""
-            }
-        }
-    }
 }
