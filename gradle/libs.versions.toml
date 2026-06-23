@@ -14,7 +14,7 @@ guice = "7.0.0"
 adventure = "5.1.1"
 cloud = "2.0.0"
 annotations = "26.1.0"
-commandant = "dev-42806f6"
+commandant = "0.0.1"
 
 # testing
 junit = "6.1.0"
