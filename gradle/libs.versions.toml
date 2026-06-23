@@ -4,14 +4,14 @@
 shadow = "9.4.2"
 toolkit = "dev-8c0271b"
 
-socialismus = "dev-7e469f0"
+socialismus = "dev-217410a"
 
 # compile time processing
 lombok = "1.18.46"
 
 # general
 guice = "7.0.0"
-adventure = "4.25.0"
+adventure = "5.1.1"
 cloud = "2.0.0"
 annotations = "26.1.0"
 commandant = "dev-42806f6"
