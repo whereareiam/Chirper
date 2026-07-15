@@ -17,7 +17,7 @@ annotations = "26.1.0"
 commandant = "dev-42806f6"
 
 # testing
-junit = "6.1.0"
+junit = "6.1.2"
 mockito = "5.23.0"
 
 [libraries]
