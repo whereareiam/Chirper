@@ -4,7 +4,7 @@
 shadow = "9.4.2"
 toolkit = "dev-8c0271b"
 
-socialismus = "dev-217410a"
+socialismus = "dev-7022665"
 
 # compile time processing
 lombok = "1.18.46"
